@@ -12,9 +12,7 @@ from routers import example, home
 from utils import config_util, logger_util
 
 WORKING_DIR = os.path.realpath(os.path.dirname(__file__))
-STATIC_CLIENT_DIR = os.path.realpath(
-    os.path.join(WORKING_DIR, "../static_client"),
-)
+CLIENT_DIR = os.path.realpath(os.path.join(WORKING_DIR, "../client"))
 
 
 @asynccontextmanager
@@ -30,11 +28,7 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(home.router)
 app.include_router(example.router)
 
-app.mount(
-    "/",
-    StaticFiles(directory=STATIC_CLIENT_DIR, html=True),
-    name="static_client",
-)
+app.mount("/", StaticFiles(directory=CLIENT_DIR, html=True), name="client")
 
 
 async def main():

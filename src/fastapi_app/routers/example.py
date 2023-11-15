@@ -9,7 +9,7 @@ from pydantic import BaseModel
 
 _WORKING_DIR = os.path.realpath(os.path.dirname(__file__))
 _EXAMPLE_HTML_PATH = os.path.realpath(
-    os.path.join(_WORKING_DIR, "../../static_client/example.html"),
+    os.path.join(_WORKING_DIR, "../../client/example.html"),
 )
 _users = []
 
