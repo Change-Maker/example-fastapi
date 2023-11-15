@@ -13,7 +13,7 @@ from utils import config_util, logger_util
 
 WORKING_DIR = os.path.realpath(os.path.dirname(__file__))
 STATIC_CLIENT_DIR = os.path.realpath(
-    os.path.join(WORKING_DIR, "../static_client"),
+    os.path.join(WORKING_DIR, "../client"),
 )
 
 
@@ -33,7 +33,7 @@ app.include_router(example.router)
 app.mount(
     "/",
     StaticFiles(directory=STATIC_CLIENT_DIR, html=True),
-    name="static_client",
+    name="client",
 )
 
 

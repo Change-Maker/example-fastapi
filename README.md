@@ -33,7 +33,28 @@
 
 ## 3. Usage
 
-Get into `src/fastapi_app` folder and run `python main.py`.
+Get into `src/client` folder and install dependencies:
+
+```bash
+npm install
+```
+
+Afterwards, run the following command to build Tailwind CSS file:
+
+```bash
+npx tailwindcss -i tailwind_input.css -o css/tailwind.css
+```
+
+If the files that match the `content` in `tailwind.config.js` don't use any
+classes that Tailwind CSS provided or you customized in `tailwind.config.js`, it
+will argue warnings to you:
+
+```text
+warn - No utility classes were detected in your source files. If this is unexpected, double-check the `content` option in your Tailwind CSS configuration.
+warn - https://tailwindcss.com/docs/content-configuration
+```
+
+Now run `python main.py` in `src/fastapi_app` folder to start the service.
 
 ### 3.1 Development mode
 
@@ -77,6 +98,8 @@ if settings.logger is not None:
 ```
 
 ### 3.4 Docker
+
+You should build Tailwind CSS file before building docker images.
 
 The examples below use `example-fastapi` as the image name.
 
