@@ -33,26 +33,68 @@
 
 ## 3. Usage
 
-Get into `src/fastapi_app` folder and run `python main.py`.
+Get into `src/client/` folder and install dependencies:
+
+```bash
+npm install
+```
+
+Build React app by running the following commands in `src/client/` folder:
+
+```bash
+npm run build
+```
+
+Afterwards, run `python main.py` in `src/fastapi_app/` folder to start service.
 
 ### 3.1 Development mode
 
-To run in development mode, set `MODE` environment variable to `dev` and run
-app:
+First, add `proxy` option into `src/client/package.json` file:
+
+```jsonc
+{
+  // ...
+  "proxy": "http://localhost:3001"
+}
+```
+
+And start React app by running the following command in `src/client/` folder:
+
+```bash
+npm start
+```
+
+(If you encount any problem with command above, check [docs/react.md](./docs/react.md)
+for more information.)
+
+This will proxy the request from the React app to FastAPI backend.
+
+Then get into `src/fastapi_app/` folder and start FastAPI backend in development
+mode:
 
 ```bash
 MODE="dev" python main.py
 ```
 
-In this mode, it will reload automatically if you save the changes to files in
-`src/fastapi_app` folder.
+In this mode, it will reload automatically if you save the changes to files
+either in `src/fastapi_app/` folder or `src/client/` folder.
+
+Now, open browser and get to `http://localhost:3000`.
+
+Run the following code in the browser console:
+
+```js
+fetch("/hello").then((res) => res.json()).then((data) => console.log(data));
+```
+
+It should receive `world` from the backend.
 
 ### 3.2 File logger
 
 To enable file logger, change `logger.enable` to `true` in
 `src/fastapi_app/configs/settings.json` file.
 
-The log files will be put in `src/fastapi_app/logs` folder.
+The log files will be put in `src/fastapi_app/logs/` folder.
 To change the location to place log files, change `logger.path` in
 `src/fastapi_app/configs/settings.json` file.
 
@@ -77,6 +119,8 @@ if settings.logger is not None:
 ```
 
 ### 3.4 Docker
+
+You should build React app before building Docker images.
 
 The examples below use `example-fastapi` as the image name.
 
