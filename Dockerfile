@@ -1,7 +1,8 @@
 FROM python:3.10.7-slim
 
 COPY ["./requirements.txt", "/ws/"]
-COPY ["./src/", "/ws/src/"]
+COPY ["./src/fastapi_app/", "/ws/src/fastapi_app/"]
+COPY ["./src/client/build/", "/ws/src/client/build/"]
 
 WORKDIR "/ws"
 RUN [\
