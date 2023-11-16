@@ -1,5 +1,10 @@
 # FastAPI App Example
 
+**Environment:**
+
+- Python v3.10.7
+- Node v20.9.0
+
 ## 1. Requirements
 
 - Python 3.10+
