@@ -1,5 +1,9 @@
 # FastAPI App Example
 
+**Environment:**
+
+- Python v3.10.7
+
 ## 1. Requirements
 
 - Python 3.10+
