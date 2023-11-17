@@ -1,0 +1,35 @@
+version: "3"
+services:
+  # fastapi_app:
+  #   image: fastapi-app
+  #   container_name: fastapi-app
+  #   build:
+  #     context: .
+  #   ports:
+  #     - "3001:3001"
+  #   networks:
+  #     - fastapi-nextjs-nw
+  fastapi_app_env_only:
+    image: fastapi-app:env-only
+    container_name: fastapi-app
+    build:
+      context: .
+      dockerfile: ./Dockerfile.env_only
+    ports:
+      - "3001:3001"
+    volumes:
+      - "./src/fastapi_app:/ws/src/fastapi_app"
+    networks:
+      - fastapi-nextjs-nw
+  nextjs_app:
+    image: nextjs-app
+    container_name: nextjs-app
+    build:
+      context: ./src/client
+    ports:
+      - "3000:3000"
+    networks:
+      - fastapi-nextjs-nw
+networks:
+  fastapi-nextjs-nw:
+    driver: bridge
