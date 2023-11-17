@@ -3,14 +3,11 @@ import os
 
 import aiofiles
 from fastapi import APIRouter, File, UploadFile
-from fastapi.responses import HTMLResponse, ORJSONResponse, Response
+from fastapi.responses import ORJSONResponse, Response
 from loguru import logger
 from pydantic import BaseModel
 
 _WORKING_DIR = os.path.realpath(os.path.dirname(__file__))
-_EXAMPLE_HTML_PATH = os.path.realpath(
-    os.path.join(_WORKING_DIR, "../../client/example.html"),
-)
 _users = []
 
 router = APIRouter(
@@ -48,12 +45,6 @@ class User(BaseModel):
 class Result(BaseModel):
     success: bool = True
     msg: str | None = None
-
-
-@router.get("")
-async def example_page():
-    async with aiofiles.open(_EXAMPLE_HTML_PATH, "r") as f:
-        return HTMLResponse(content=await f.read(), status_code=200)
 
 
 @router.get("/orjson-resp")
