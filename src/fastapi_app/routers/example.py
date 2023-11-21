@@ -2,7 +2,7 @@ import io
 import os
 
 import aiofiles
-from fastapi import APIRouter, File, UploadFile, status
+from fastapi import APIRouter, Body, File, HTTPException, UploadFile, status
 from fastapi.responses import HTMLResponse, ORJSONResponse, Response
 from loguru import logger
 from pydantic import BaseModel
@@ -62,6 +62,17 @@ async def example_page():
 @router.get("/orjson-resp")
 async def get_orjson_response() -> ORJSONResponse:
     return ORJSONResponse({"a": "alfa", "b": "bravo", "c": "charlie"})
+
+
+@router.post("/num")
+async def get_unavailable(num: int | float = Body(...)) -> ORJSONResponse:
+    if num >= 0:
+        return ORJSONResponse({"msg": f"Received number: {num}"})
+    else:
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            detail="The given number shouldn't be negative.",
+        )
 
 
 @router.get("/users")

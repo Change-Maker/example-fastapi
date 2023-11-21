@@ -70,6 +70,32 @@ window.onload = function () {
       });
   };
 
+  document.getElementById('post-num').onclick = function () {
+    const url = '/example/num';
+    const num = 1;
+    axios
+      .post(url, num)
+      .then((resp) => {
+        console.log(`POST ${url}: response:`, resp);
+      })
+      .catch((err) => {
+        console.error(`Failed to POST ${url}:`, err);
+      });
+  };
+
+  document.getElementById('post-num-wrong').onclick = function () {
+    const url = '/example/num';
+    const data = -1;
+    axios
+      .post(url, data)
+      .then((resp) => {
+        console.log(`POST ${url}: response:`, resp);
+      })
+      .catch((err) => {
+        console.error(`Failed to POST ${url}:`, err);
+      });
+  };
+
   document.getElementById('post-user').onclick = function () {
     const url = '/example/user';
     const user = { name: 'alfa', age: 18, isVerified: true };
