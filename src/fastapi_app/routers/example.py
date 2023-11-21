@@ -2,7 +2,7 @@ import io
 import os
 
 import aiofiles
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter, File, UploadFile, status
 from fastapi.responses import ORJSONResponse, Response
 from loguru import logger
 from pydantic import BaseModel
@@ -63,7 +63,7 @@ async def add_user(user: User, resp: Response) -> Result:
         _users.append(user)
         return Result()
     else:
-        resp.status_code = 409  # Conflict.
+        resp.status_code = status.HTTP_409_CONFLICT
         return Result(success=False, msg="User already exists.")
 
 
