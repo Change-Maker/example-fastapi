@@ -2,7 +2,7 @@ import io
 import os
 
 import aiofiles
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter, File, UploadFile, status
 from fastapi.responses import HTMLResponse, ORJSONResponse, Response
 from loguru import logger
 from pydantic import BaseModel
@@ -53,7 +53,10 @@ class Result(BaseModel):
 @router.get("")
 async def example_page():
     async with aiofiles.open(_EXAMPLE_HTML_PATH, "r") as f:
-        return HTMLResponse(content=await f.read(), status_code=200)
+        return HTMLResponse(
+            content=await f.read(),
+            status_code=status.HTTP_200_OK,
+        )
 
 
 @router.get("/orjson-resp")
@@ -72,7 +75,7 @@ async def add_user(user: User, resp: Response) -> Result:
         _users.append(user)
         return Result()
     else:
-        resp.status_code = 409  # Conflict.
+        resp.status_code = status.HTTP_409_CONFLICT
         return Result(success=False, msg="User already exists.")
 
 
